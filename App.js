@@ -16,10 +16,11 @@ import colors from "./src/constants/colors";
 
 import HomeScreen from "./src/screens/HomeScreen";
 import GameScreen from "./src/screens/GameScreen";
+import ResultScreen from "./src/screens/ResultScreen";
 
 export default function App() {
   const [numberToGuess, setNumberToGuess] = useState("");
-  const [isStartGame, setIsStartGame] = useState(false);
+  const [screen, setScreen] = useState("Home");
   const [guesses, setGuesses] = useState([]);
 
   const [loaded] = useFonts({
@@ -44,18 +45,25 @@ export default function App() {
       return;
     }
 
-    setIsStartGame(true);
+    setScreen("Game");
   };
 
   const resetHandler = () => {
     setNumberToGuess("");
   };
 
-  const guessHandler = (value) => {
-    setGuesses((prevGuesses) => [value, ...prevGuesses]);
+  const guessHandler = (guess) => {
+    setGuesses((prevGuesses) => [guess, ...prevGuesses]);
 
-    // Todo:
-    // Check if correct
+    if (guess === parseInt(numberToGuess)) {
+      setScreen("Result");
+    }
+  };
+
+  const startNewGameHandler = () => {
+    setNumberToGuess("");
+    setScreen("Home");
+    setGuesses([]);
   };
 
   return (
@@ -72,7 +80,7 @@ export default function App() {
         <ExpoStatusBar style="light" />
 
         <SafeAreaView style={styles.safeAreaView}>
-          {!isStartGame && (
+          {screen === "Home" && (
             <HomeScreen
               numberToGuess={numberToGuess}
               onChangeText={(value) => setNumberToGuess(value)}
@@ -81,11 +89,19 @@ export default function App() {
             />
           )}
 
-          {isStartGame && (
+          {screen === "Game" && (
             <GameScreen
               numberToGuess={numberToGuess}
               guesses={guesses}
               onGuess={guessHandler}
+            />
+          )}
+
+          {screen === "Result" && (
+            <ResultScreen
+              rounds={guesses.length}
+              numberToGuess={numberToGuess}
+              onStartNewGame={startNewGameHandler}
             />
           )}
         </SafeAreaView>
