@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#ffffff",
     textAlign: "center",
+    fontFamily: "open-sans",
     fontSize: 16,
   },
   opacity: {

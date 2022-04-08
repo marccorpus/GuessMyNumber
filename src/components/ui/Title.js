@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#ffffff",
+    fontFamily: "open-sans-bold",
     fontSize: 24,
-    fontWeight: "bold",
     textAlign: "center",
   },
 });

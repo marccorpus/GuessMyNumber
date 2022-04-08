@@ -5,7 +5,9 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
+import { useFonts } from "expo-font";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import AppLoading from "expo-app-loading";
 import { LinearGradient } from "expo-linear-gradient";
 
 import colors from "./src/constants/colors";
@@ -13,6 +15,15 @@ import colors from "./src/constants/colors";
 import HomeScreen from "./src/screens/HomeScreen";
 
 export default function App() {
+  const [loaded] = useFonts({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+
+  if (!loaded) {
+    return <AppLoading />;
+  }
+
   return (
     <LinearGradient
       colors={[colors.Primary500, colors.Accent500]}

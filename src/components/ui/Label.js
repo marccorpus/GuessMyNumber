@@ -11,6 +11,7 @@ export default Label;
 const styles = StyleSheet.create({
   text: {
     color: colors.Accent500,
+    fontFamily: "open-sans",
     fontSize: 20,
   },
 });
