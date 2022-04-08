@@ -7,7 +7,7 @@ import Button from "../components/ui/Button";
 
 import colors from "../constants/colors";
 
-const HomeScreen = () => {
+const HomeScreen = ({ numberToGuess, onChangeText, onConfirm, onReset }) => {
   return (
     <View style={styles.container}>
       <Title>Guess My Number</Title>
@@ -19,13 +19,15 @@ const HomeScreen = () => {
             style={styles.textInput}
             keyboardType="number-pad"
             maxLength={2}
+            value={numberToGuess}
+            onChangeText={onChangeText}
           />
           <View style={styles.buttonsContainer}>
             <View style={styles.button}>
-              <Button>Reset</Button>
+              <Button onPress={onReset}>Reset</Button>
             </View>
             <View style={styles.button}>
-              <Button>Confirm</Button>
+              <Button onPress={onConfirm}>Confirm</Button>
             </View>
           </View>
         </Card>

@@ -1,7 +1,9 @@
+import { useState } from "react";
 import {
   SafeAreaView,
   Platform,
   StatusBar,
+  Alert,
   StyleSheet,
   ImageBackground,
 } from "react-native";
@@ -13,8 +15,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import colors from "./src/constants/colors";
 
 import HomeScreen from "./src/screens/HomeScreen";
+import GameScreen from "./src/screens/GameScreen";
 
 export default function App() {
+  const [numberToGuess, setNumberToGuess] = useState("");
+  const [isStartGame, setIsStartGame] = useState(false);
+
   const [loaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
@@ -23,6 +29,26 @@ export default function App() {
   if (!loaded) {
     return <AppLoading />;
   }
+
+  const confirmHandler = () => {
+    const number = parseInt(numberToGuess);
+
+    if (isNaN(number) || number < 1 || number > 99) {
+      Alert.alert("Invalid Input", "Number must be between 1 to 99.", [
+        { text: "Ok", style: "destructive" },
+      ]);
+
+      resetHandler();
+
+      return;
+    }
+
+    setIsStartGame(true);
+  };
+
+  const resetHandler = () => {
+    setNumberToGuess("");
+  };
 
   return (
     <LinearGradient
@@ -38,7 +64,16 @@ export default function App() {
         <ExpoStatusBar style="light" />
 
         <SafeAreaView style={styles.safeAreaView}>
-          <HomeScreen />
+          {!isStartGame && (
+            <HomeScreen
+              numberToGuess={numberToGuess}
+              onChangeText={(value) => setNumberToGuess(value)}
+              onConfirm={confirmHandler}
+              onReset={resetHandler}
+            />
+          )}
+
+          {isStartGame && <GameScreen />}
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
