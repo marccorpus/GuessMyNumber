@@ -1,0 +1,7 @@
+export default {
+  Primary500: "#72063c",
+  Primary600: "#640233",
+  Primary700: "#4e0329",
+  Primary800: "#3b021f",
+  Accent500: "#ddb52f",
+};
