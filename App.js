@@ -20,6 +20,7 @@ import GameScreen from "./src/screens/GameScreen";
 export default function App() {
   const [numberToGuess, setNumberToGuess] = useState("");
   const [isStartGame, setIsStartGame] = useState(false);
+  const [guesses, setGuesses] = useState([]);
 
   const [loaded] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -50,6 +51,13 @@ export default function App() {
     setNumberToGuess("");
   };
 
+  const guessHandler = (value) => {
+    setGuesses((prevGuesses) => [value, ...prevGuesses]);
+
+    // Todo:
+    // Check if correct
+  };
+
   return (
     <LinearGradient
       colors={[colors.Primary500, colors.Accent500]}
@@ -73,7 +81,13 @@ export default function App() {
             />
           )}
 
-          {isStartGame && <GameScreen />}
+          {isStartGame && (
+            <GameScreen
+              numberToGuess={numberToGuess}
+              guesses={guesses}
+              onGuess={guessHandler}
+            />
+          )}
         </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
