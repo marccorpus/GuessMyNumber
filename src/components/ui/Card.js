@@ -2,8 +2,12 @@ import { StyleSheet, View } from "react-native";
 
 import colors from "../../constants/colors";
 
-const Card = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+const Card = ({ children, containerStyle }) => {
+  return (
+    <View style={[styles.container, containerStyle && { ...containerStyle }]}>
+      {children}
+    </View>
+  );
 };
 
 export default Card;

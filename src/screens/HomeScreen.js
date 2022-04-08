@@ -12,26 +12,26 @@ const HomeScreen = ({ numberToGuess, onChangeText, onConfirm, onReset }) => {
     <View style={styles.container}>
       <Title>Guess My Number</Title>
 
-      <View style={styles.card}>
-        <Card>
-          <Label>Enter a Number</Label>
-          <TextInput
-            style={styles.textInput}
-            keyboardType="number-pad"
-            maxLength={2}
-            value={numberToGuess}
-            onChangeText={onChangeText}
-          />
-          <View style={styles.buttonsContainer}>
-            <View style={styles.button}>
-              <Button onPress={onReset}>Reset</Button>
-            </View>
-            <View style={styles.button}>
-              <Button onPress={onConfirm}>Confirm</Button>
-            </View>
+      <Card containerStyle={styles.cardContainer}>
+        <Label>Enter a Number</Label>
+
+        <TextInput
+          style={styles.textInput}
+          keyboardType="number-pad"
+          maxLength={2}
+          value={numberToGuess}
+          onChangeText={onChangeText}
+        />
+
+        <View style={styles.buttonsContainer}>
+          <View style={styles.button}>
+            <Button onPress={onReset}>Reset</Button>
           </View>
-        </Card>
-      </View>
+          <View style={styles.button}>
+            <Button onPress={onConfirm}>Confirm</Button>
+          </View>
+        </View>
+      </Card>
     </View>
   );
 };
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  card: {
+  cardContainer: {
     alignSelf: "stretch",
     marginTop: 24,
   },
